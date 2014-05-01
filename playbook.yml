@@ -1,0 +1,14 @@
+- hosts: all
+  sudo: yes
+  gather_facts: no
+  tasks:
+    - name: install common packages
+      yum: name={{ item }} state=installed
+      with_items:
+        - python-devel
+        - python-setuptools
+        - make
+        - gcc
+        - gcc-c++
+        - kernel-devel
+      tags: common-packages
