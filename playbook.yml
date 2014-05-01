@@ -1,6 +1,6 @@
 - hosts: all
   vars:
-    mysql_rpm_url: http://dbstudy.info/mysql/4.1.22/rhel4/
+    mysql_rpm_url: http://dbstudy.info/mysql/4.1.22/rhel4
   sudo: yes
   gather_facts: no
   tasks:
@@ -14,20 +14,22 @@
         - gcc-c++
         - kernel-devel
       tags: base-packages
+    - name: perl install for mysql4
+      yum: name={{ item }} state=installed
+      with_items:
+        - perl
+        - perl-DBI
+      tags: perl
     - name: mysql4 download
       get_url: url="http://dbstudy.info/mysql/4.1.25/mysql-4.1.25.tar.gz" dest=/tmp
-    - name: tes1
-      yum: name={{ mysql_rpm_url }}MySQL-server-standard-4.1.22-0.rhel4.x86_64.rpm state=present
-    #- yum: name=http://dbstudy.info/mysql/4.1.22/rhel4/MySQL-client-standard-4.1.22-0.rhel4.x86_64.rpm state=present
-    - name: tes2
-      yum: name=http://dbstudy.info/mysql/4.1.22/rhel4/{{ item }} state=present
+    - name: install mysql4
+      yum: name={{ item }} state=present
       with_items:
-        - MySQL-devel-standard-4.1.22-0.rhel4.x86_64.rpm
-        - http://dbstudy.info/mysql/4.1.22/rhel4/MySQL-client-standard-4.1.22-0.rhel4.x86_64.rpm
-        - "{{ mysql_rpm_url }}MySQL-client-standard-4.1.22-0.rhel4.x86_64.rpm"
-        #- MySQL-shared-compat-4.1.22-0.rhel4.x86_64.rpm
+        - "{{ mysql_rpm_url }}/MySQL-devel-standard-4.1.22-0.rhel4.x86_64.rpm"
+        - "{{ mysql_rpm_url }}/MySQL-server-standard-4.1.22-0.rhel4.x86_64.rpm"
+        - "{{ mysql_rpm_url }}/MySQL-client-standard-4.1.22-0.rhel4.x86_64.rpm"
+        - "{{ mysql_rpm_url }}/MySQL-shared-standard-4.1.22-0.rhel4.x86_64.rpm"
+        - "{{ mysql_rpm_url }}/MySQL-shared-compat-4.1.22-0.rhel4.x86_64.rpm"
       tags: mysql4
-    #     
-    #     - MySQL-shared-standard-4.1.22-0.rhel4.x86_64.rpm
-    #     #MySQL-standard-debuginfo-4.1.22-0.rhel4.x86_64.rpm
-    #     #MySQL-test-standard-4.1.22-0.rhel4.x86_64.rpm
+      #MySQL-standard-debuginfo-4.1.22-0.rhel4.x86_64.rpm
+      #MySQL-test-standard-4.1.22-0.rhel4.x86_64.rpm
