@@ -11,4 +11,6 @@
         - gcc
         - gcc-c++
         - kernel-devel
-      tags: common-packages
+      tags: base-packages
+    - name: mysql4 download
+      get_url: url="http://dbstudy.info/mysql/4.1.25/mysql-4.1.25.tar.gz" dest=/tmp
