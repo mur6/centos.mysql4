@@ -21,13 +21,9 @@
         - perl-DBI
       tags: perl
     - name: install mysql4
-      yum: name={{ item }} state=present
+      shell: rpm -i {{ item }}
       with_items:
         - "{{ mysql_rpm_url }}/MySQL-devel-standard-4.1.22-0.rhel4.x86_64.rpm"
         - "{{ mysql_rpm_url }}/MySQL-server-standard-4.1.22-0.rhel4.x86_64.rpm"
         - "{{ mysql_rpm_url }}/MySQL-client-standard-4.1.22-0.rhel4.x86_64.rpm"
-        - "{{ mysql_rpm_url }}/MySQL-shared-standard-4.1.22-0.rhel4.x86_64.rpm"
-        - "{{ mysql_rpm_url }}/MySQL-shared-compat-4.1.22-0.rhel4.x86_64.rpm"
       tags: mysql4
-      #MySQL-standard-debuginfo-4.1.22-0.rhel4.x86_64.rpm
-      #MySQL-test-standard-4.1.22-0.rhel4.x86_64.rpm
